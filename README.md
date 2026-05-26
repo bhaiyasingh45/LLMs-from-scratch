@@ -1,4 +1,4 @@
-# 🧠 Build an LLM from Scratch
+# Build an LLM from Scratch
 
 > Coding a transformer-based language model from absolute zero — every line by hand, on a MacBook.
 
@@ -9,7 +9,7 @@
 
 ---
 
-## 🎯 Why This Repo Exists
+## Why This Repo Exists
 
 Most LLM tutorials hand you a library and tell you to call `model.generate()`. This repo does the opposite: **we build the whole thing from scratch.** No `transformers` library, no shortcuts — just PyTorch, math, and a relentless focus on understanding *every* line of code that goes into a modern language model.
 
@@ -17,7 +17,7 @@ The goal is not to compete with GPT-4. The goal is to walk out the other side kn
 
 By the end, we'll have a small but real LLM that can answer questions about content it was trained on — running on a laptop, no GPU cluster required.
 
-## 📚 What You'll Find Here
+## What You'll Find Here
 
 This repo is a step-by-step journey. Each phase has its own folder, its own code, and its own notes explaining *why* the code looks the way it does.
 
@@ -35,7 +35,7 @@ What we'll cover:
 - **Evaluation** — perplexity, qualitative checks, basic eval harnesses
 - **(Stretch) Inference optimizations** — KV cache, quantization
 
-## 🏗️ The Architecture
+## The Architecture
 
 We're building a **decoder-only transformer** in the GPT family. Here's the high-level picture:
 
@@ -70,13 +70,16 @@ Output logits
 
 Starting target: **~10M parameters**, character-level or small BPE vocab, trained on a manageable corpus. We scale up from there as time, patience, and laptop thermals allow.
 
-## 🗺️ Roadmap
+## Roadmap
 
-### Phase 1 — Foundations
-- [ ] Set up dev environment (PyTorch + MPS on macOS)
-- [ ] Implement a basic character-level tokenizer
-- [ ] Load and prepare TinyShakespeare dataset
-- [ ] Build a bigram baseline model (sanity check)
+### Phase 1 — Foundations (In Progress)
+- [x] Set up dev environment (PyTorch + MPS on macOS)
+- [x] Text preprocessing and tokenization
+- [x] Building simple tokenizers (V1 and V2)
+- [x] Byte Pair Encoding with tiktoken
+- [x] Dataset with sliding window for input-target pairs
+- [x] Token embeddings and positional embeddings
+- [ ] Implement a bigram baseline model (sanity check)
 
 ### Phase 2 — Core Transformer
 - [ ] Implement scaled dot-product attention
@@ -107,19 +110,26 @@ Starting target: **~10M parameters**, character-level or small BPE vocab, traine
 - [ ] Basic quantization
 - [ ] Compare with HuggingFace equivalents
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 .
 ├── README.md
+├── CLAUDE.md              # Project context for development
 ├── requirements.txt
-├── notebooks/             # Exploratory notebooks per phase
-├── src/
-│   ├── tokenizer/         # Tokenization code
-│   ├── model/             # Model architecture (attention, blocks, GPT)
-│   ├── training/          # Training loops & utils
-│   ├── data/              # Data loading & preprocessing
-│   └── inference/         # Sampling & generation
+├── setup.md               # Environment setup guide
+├── notebooks/             # Step-by-step implementation notebooks
+│   ├── 01_text_preprocessing.ipynb
+│   ├── 02_simple_tokenizers.ipynb
+│   ├── 03_bpe_tokenization.ipynb
+│   ├── 04_dataset_dataloader.ipynb
+│   └── 05_embeddings.ipynb
+├── src/                   # Python modules (created after notebook validation)
+│   ├── tokenizer/
+│   ├── model/
+│   ├── training/
+│   ├── data/
+│   └── inference/
 ├── data/                  # Raw datasets (gitignored)
 ├── checkpoints/           # Trained weights (gitignored)
 ├── docs/                  # Notes & explanations per phase
@@ -128,7 +138,7 @@ Starting target: **~10M parameters**, character-level or small BPE vocab, traine
 
 *Structure will evolve as the project grows.*
 
-## 🖥️ Hardware
+## Hardware
 
 This entire repo is built on a **MacBook (16GB RAM, Apple Silicon)** to prove the point that you don't need a GPU farm to learn this stuff. The stack:
 
@@ -144,25 +154,27 @@ Suggested specs to follow along comfortably:
 
 For anything beyond Phase 5, free-tier Google Colab or Kaggle GPUs are a solid escape hatch.
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Clone the repo
 git clone https://github.com/<your-username>/llm-from-scratch.git
 cd llm-from-scratch
 
-# Set up environment
-python -m venv .venv
+# Set up environment (using uv for speed)
+uv venv
 source .venv/bin/activate
-pip install -r requirements.txt
+uv pip install -r requirements.txt
 
-# Run the first model (coming soon)
-python src/training/train_baseline.py
+# Start Jupyter and open the notebooks
+jupyter lab
 ```
 
-*Detailed setup and run instructions per phase live inside each phase's folder.*
+Start with `notebooks/01_text_preprocessing.ipynb` and work through in order.
 
-## 📖 Learning Resources
+*Detailed setup instructions in [setup.md](setup.md).*
+
+## Learning Resources
 
 This journey stands on the shoulders of giants. Highly recommended companions:
 
@@ -173,20 +185,20 @@ This journey stands on the shoulders of giants. Highly recommended companions:
 - **nanoGPT** — Karpathy's reference implementation
 - **The Annotated Transformer** — Harvard NLP
 
-## ✍️ Follow the Journey
+## Follow the Journey
 
 I'm documenting this build in public. Each phase ships with notes, and key milestones will get longer write-ups.
 
-- 💼 [LinkedIn](#) *(update with your handle)*
-- 📺 [YouTube](#) *(update with your channel)*
-- 📝 Phase-by-phase notes live in `docs/`
+- LinkedIn *(update with your handle)*
+- YouTube *(update with your channel)*
+- Phase-by-phase notes live in `docs/`
 
-If you spot a bug, a better way to do something, or just want to follow along — open an issue or drop a star. ⭐
+If you spot a bug, a better way to do something, or just want to follow along — open an issue or drop a star.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 Massive thanks to **Andrej Karpathy** and **Sebastian Raschka**, whose teaching makes journeys like this possible.
 
-## 📄 License
+## License
 
 MIT — see [LICENSE](LICENSE).

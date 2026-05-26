@@ -39,6 +39,11 @@ source .venv/bin/activate
 Install your dependencies using `uv pip` instead of regular `pip` for maximum speed:
 ```bash
 uv pip install <package_name>
+
+or 
+
+uv pip install -r requirements.txt
+
 ```
 
 ### Step 5: Deactivate
